@@ -36,8 +36,9 @@ jobs:
       run: mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
           -Dsonar.projectKey=cicd \
           -Dsonar.organization=com.example \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
