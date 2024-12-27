@@ -34,10 +34,10 @@ jobs:
 
     - name: Build with Maven and SonarQube Scan
       run: mvn clean install sonar:sonar \
-          -Dsonar.projectKey=cicd \
-          -Dsonar.organization=com.example \
-          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        -Dsonar.projectKey=cicd \
+        -Dsonar.organization=com.example \
+        -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
