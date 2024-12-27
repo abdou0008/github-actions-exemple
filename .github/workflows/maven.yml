@@ -29,8 +29,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Nettoyer le cache Maven
+      run: rm -rf /home/runner/.m2/repository/org/sonarsource/scanner/maven
+
     - name: Build with Maven and SonarQube Scan
-      run: mvn clean install org.sonarsource.scanner.maven:sonar \
+      run: mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
           -Dsonar.projectKey=cicd \
           -Dsonar.organization=com.example \
           -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
