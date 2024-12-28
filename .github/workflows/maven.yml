@@ -40,7 +40,7 @@ jobs:
             -Dsonar.projectKey=cicd
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} 
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-      run: mvn clean install sonar:sonar
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
