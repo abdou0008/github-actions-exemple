@@ -38,8 +38,9 @@ jobs:
         args: >
           -Dsonar.organizat=com.example
           -Dsonar.projectKey=cicd
-          -Dsonar.host.url=https://bd8e-41-82-27-17.ngrok-free.app
-          -Dsonar.login=YOUR_SONAR_TOKEN
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     - name: Build with Maven and SonarQube Scan
       run: mvn clean install sonar:sonar
 #          -Dsonar.projectKey=cicd \
@@ -58,9 +59,6 @@ jobs:
     - name: Nettoyer les fichiers temporaires
       run: rm -rf /home/runner/work/_temp/*
 
-#      env:
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          #SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
