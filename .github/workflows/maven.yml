@@ -42,7 +42,7 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     - name: Build with Maven and SonarQube Scan
-      run: mvn clean install sonar:sonar
+      run: mvn clean install org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar
 #          -Dsonar.projectKey=cicd \
 #          -Dsonar.organization=com.example \
 #          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
