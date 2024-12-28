@@ -32,6 +32,9 @@ jobs:
       - name: Nettoyer le cache Maven pour SonarQube
         run: rm -rf /home/runner/.m2/repository/org/sonarsource/scanner/maven
 
+      - name: Compile
+        run: mvn clean install -DskipTests
+
       - name: SonarQube Scan (Action officielle)
         uses: SonarSource/sonarqube-scan-action@v2
         with:
@@ -62,6 +65,14 @@ jobs:
 
       - name: Nettoyer les fichiers temporaires
         run: rm -rf /home/runner/work/_temp/*
+
+      - name: Run SonarQube Analysis
+        run: sonar-scanner \
+          -Dsonar.projectKey=YourProjectKey \
+          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.java.binaries=target/classes
+
 
 
       #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
