@@ -54,8 +54,8 @@ jobs:
       with:
         projectBaseDir:
         args: >
-          -Dsonar.organizat=com.example
-          -Dsonar.projectKey=cicd
+            -Dsonar.organizat=com.example
+            -Dsonar.projectKey=cicd
       env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
