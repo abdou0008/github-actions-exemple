@@ -33,7 +33,7 @@ jobs:
         run: rm -rf /home/runner/.m2/repository/org/sonarsource/scanner/maven
 
       - name: SonarQube Scan (Action officielle)
-        uses: SonarSource/sonarqube-scan-action@v1
+        uses: SonarSource/sonarqube-scan-action@v2
         with:
           projectBaseDir: .
           args: >
