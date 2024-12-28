@@ -32,16 +32,24 @@ jobs:
     - name: Nettoyer le cache Maven
       run: rm -rf /home/runner/.m2/repository/org/sonarsource/scanner/maven
 
-    - name: Build with Maven and SonarQube Scan
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v1 # Ex: v4.1.0, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan
       with:
-          projectBaseDir:
-          args: >
-            -Dsonar.organizat=com.example
-            -Dsonar.projectKey=cicd
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} 
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        projectBaseDir:
+        args: >
+          -Dsonar.organizat=com.example
+          -Dsonar.projectKey=cicd
+      env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
+#    - name: Build with Maven and SonarQube Scan
+#      run: mvn clean install sonar:sonar \
+#          -Dsonar.projectKey=cicd \
+#          -Dsonar.organization=com.example \
+#          -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
+#          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
