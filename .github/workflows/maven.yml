@@ -33,11 +33,15 @@ jobs:
       run: rm -rf /home/runner/.m2/repository/org/sonarsource/scanner/maven
 
     - name: Build with Maven and SonarQube Scan
-      run: mvn clean install sonar:sonar \
-        -Dsonar.projectKey=cicd \
-        -Dsonar.organization=com.example \
-        -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      with:
+          projectBaseDir:
+          args: >
+            -Dsonar.organizat=com.example
+            -Dsonar.projectKey=cicd
+            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} 
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      run: mvn clean install sonar:sonar
+
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
